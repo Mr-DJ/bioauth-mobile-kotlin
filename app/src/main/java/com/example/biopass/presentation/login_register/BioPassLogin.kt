@@ -1,4 +1,4 @@
-package com.example.biopass.presentation.login
+package com.example.biopass.presentation.login_register
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
@@ -11,9 +11,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.biopass.presentation.screen.Screens
 
 @Composable
-fun BioPassLogin() {
+fun BioPassLogin(navController: NavController) {
     val adminNameValue = remember {
         mutableStateOf(String())
     }
@@ -29,20 +31,22 @@ fun BioPassLogin() {
         OutlinedTextField(
             value = adminNameValue.value,
             onValueChange = { adminNameValue.value = it },
+            label = { Text(text = "UserName")},
             modifier = Modifier.width(
                 LocalConfiguration.current.screenWidthDp.dp - 40.dp
             )
         )
-        Spacer(modifier = Modifier.padding(25.dp))
+        Spacer(modifier = Modifier.padding(20.dp))
         OutlinedTextField(
             value = passWordValue.value,
             onValueChange = { passWordValue.value = it },
+            label = { Text(text = "Password")},
             modifier = Modifier.width(
                 LocalConfiguration.current.screenWidthDp.dp - 40.dp
             )
         )
-        
-        Button(onClick = { /*TODO*/ }) {
+        Spacer(modifier = Modifier.padding(20.dp))
+        Button(onClick = { navController.navigate(Screens.ConnectedWebScreen.route) }) {
             Text(text = "Sign In")
         }
     }
