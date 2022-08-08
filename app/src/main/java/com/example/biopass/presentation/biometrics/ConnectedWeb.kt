@@ -15,12 +15,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.biopass.presentation.screen.Screens
 
 
 val webList = listOf<String>("Amazon","FlipKart","Lobby","Kaggle","Swift","Edureka","KBC","Indian Times","Myntra","Meeshow","Snapdeal","OLX","Trivago","Gmail")
 
 @Composable
-fun ConnectedWeb() {
+fun ConnectedWeb(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -36,7 +38,7 @@ fun ConnectedWeb() {
                         LocalConfiguration.current.screenHeightDp.dp / 15
                     )
                     .align(Alignment.CenterHorizontally).clickable {
-
+                        navController.navigate(Screens.BiometricScreen.route)
                     },
             ) {
 
