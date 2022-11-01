@@ -30,6 +30,7 @@ fun ConnectedWeb(navController: NavController) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Spacer(modifier = Modifier.padding(10.dp))
         webList.forEach{ it ->
             Card(
                 modifier = Modifier
@@ -37,13 +38,16 @@ fun ConnectedWeb(navController: NavController) {
                     .height(
                         LocalConfiguration.current.screenHeightDp.dp / 15
                     )
-                    .align(Alignment.CenterHorizontally).clickable {
+                    .align(Alignment.CenterHorizontally)
+                    .clickable {
                         navController.navigate(Screens.BiometricScreen.route)
                     },
             ) {
 
                 Row(
-                    modifier = Modifier.fillMaxSize().background(Color.Cyan),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color.Cyan),
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
