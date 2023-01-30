@@ -1,6 +1,5 @@
 package com.example.biopass.presentation.login_register
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.OutlinedTextField
