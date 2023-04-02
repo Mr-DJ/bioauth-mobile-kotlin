@@ -14,13 +14,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-fun BiometricScreen(onClick: () -> Unit) {
+fun BiometricScreen(websiteName : String,onClick: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Gmail", style = TextStyle(fontSize = LocalConfiguration.current.fontScale.times(30).sp))
+        Text(text = websiteName, style = TextStyle(fontSize = LocalConfiguration.current.fontScale.times(30).sp))
         Spacer(modifier = Modifier.padding(25.dp))
         Text(text = "Authentication request needed", style = TextStyle(color = Color.Blue, fontSize = LocalConfiguration.current.fontScale.times(18).sp))
         Button(onClick) {

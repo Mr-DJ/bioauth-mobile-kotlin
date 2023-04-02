@@ -50,8 +50,9 @@ class MainActivity : ComponentActivity() {
                     composable(Screens.ConnectedWebScreen.route){
                         ConnectedWeb(navController, bioPassViewModel)
                     }
-                    composable(Screens.BiometricScreen.route){
-                        BiometricScreen { launchBiometric() }
+                    composable(Screens.BiometricScreen.route+"/{website_name}"){
+                        val name = it.arguments?.getString("website_name")
+                        BiometricScreen(name!!) { launchBiometric() }
                     }
                 }
 

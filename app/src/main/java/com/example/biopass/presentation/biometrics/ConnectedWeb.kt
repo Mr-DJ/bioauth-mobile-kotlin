@@ -61,7 +61,7 @@ fun ConnectedWeb(navController: NavController, viewModel: BioPassViewModel) {
                         )
                         .align(Alignment.CenterHorizontally)
                         .clickable {
-                            navController.navigate(Screens.BiometricScreen.route + '/')
+                            navController.navigate(Screens.BiometricScreen.route + "/${it.websiteName}")
                         },
                 ) {
 
