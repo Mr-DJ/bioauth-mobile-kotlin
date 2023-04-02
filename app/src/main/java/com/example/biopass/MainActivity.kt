@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.biopass.data.network.SocketHandler
 import com.example.biopass.presentation.BioPassViewModel
 import com.example.biopass.presentation.BioPassViewModelFactory
 import com.example.biopass.presentation.ConnectedWeb
@@ -27,17 +28,24 @@ import com.example.biopass.presentation.biometrics.BiometricScreen
 import com.example.biopass.presentation.login_register.BioPassLogin
 import com.example.biopass.presentation.screen.Screens
 import com.example.biopass.ui.theme.BioPassTheme
+import io.socket.client.Socket
 
 class MainActivity : ComponentActivity() {
 
     private var cancellationSignal: CancellationSignal? = null
     private lateinit var bioPassViewModel : BioPassViewModel
+    private lateinit var socket : Socket
 
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         bioPassViewModel = ViewModelProvider(this,BioPassViewModelFactory(application))[BioPassViewModel::class.java]
+
+        SocketHandler.setSocket()
+        val mSocket = SocketHandler.getSocket()
+        mSocket.connect()
+        socket = mSocket
 
         setContent {
             BioPassTheme {
@@ -56,6 +64,13 @@ class MainActivity : ComponentActivity() {
                     }
                 }
 
+            }
+            socket.on("checkSocket"){args->
+                if (args[0]!=null){
+                    runOnUiThread{
+                        Toast.makeText(this@MainActivity,"${args[0]}",Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         }
     }
@@ -77,7 +92,8 @@ class MainActivity : ComponentActivity() {
             }
 
             override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult?) {
-                notifyUser("Authentication Succeeded "+result.toString())
+//                notifyUser("Authentication Succeeded "+result.toString())
+                socket.emit("checkSocket")
                 super.onAuthenticationSucceeded(result)
             }
         }
