@@ -54,15 +54,6 @@ fun BioPassLogin(navController: NavController) {
             Text(text = "Sign In")
         }
 
-//        Row(
-//            modifier = Modifier.fillMaxWidth(),
-//            verticalAlignment = Alignment.Bottom,
-//            horizontalArrangement = Arrangement.Center
-//        ) {
-//            Canvas(modifier = Modifier.fillMaxSize()){
-//
-//            }
-//        }
     }
 
 }
