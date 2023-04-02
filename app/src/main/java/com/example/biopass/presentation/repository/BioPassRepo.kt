@@ -4,6 +4,6 @@ import com.example.biopass.data.dataClass.WebsiteData
 
 interface BioPassRepo {
 
-    suspend fun getWebsite() : WebsiteData?
+    suspend fun getWebsite() : WebsiteDataX?
 
 }

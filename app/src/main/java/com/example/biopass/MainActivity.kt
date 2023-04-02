@@ -16,9 +16,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.biopass.presentation.BioPassViewModel
+import com.example.biopass.presentation.BioPassViewModelFactory
 import com.example.biopass.presentation.ConnectedWeb
 import com.example.biopass.presentation.biometrics.BiometricScreen
 import com.example.biopass.presentation.login_register.BioPassLogin
@@ -28,11 +31,14 @@ import com.example.biopass.ui.theme.BioPassTheme
 class MainActivity : ComponentActivity() {
 
     private var cancellationSignal: CancellationSignal? = null
-
+    private lateinit var bioPassViewModel : BioPassViewModel
 
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        bioPassViewModel = ViewModelProvider(this,BioPassViewModelFactory(application))[BioPassViewModel::class.java]
+
         setContent {
             BioPassTheme {
 
@@ -42,7 +48,7 @@ class MainActivity : ComponentActivity() {
                         BioPassLogin(navController)
                     }
                     composable(Screens.ConnectedWebScreen.route){
-                        ConnectedWeb(navController)
+                        ConnectedWeb(navController, bioPassViewModel)
                     }
                     composable(Screens.BiometricScreen.route){
                         BiometricScreen { launchBiometric() }
