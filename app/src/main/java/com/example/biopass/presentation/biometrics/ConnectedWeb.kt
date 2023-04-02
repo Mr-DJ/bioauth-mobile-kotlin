@@ -26,9 +26,6 @@ import com.example.biopass.presentation.screen.Screens
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
-
-val webList = listOf<String>("Amazon","FlipKart","Lobby","Kaggle","Swift","Edureka","KBC","Indian Times","Myntra","Meeshow","Snapdeal","OLX","Trivago","Gmail")
-
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun ConnectedWeb(navController: NavController, viewModel: BioPassViewModel) {
@@ -38,6 +35,7 @@ fun ConnectedWeb(navController: NavController, viewModel: BioPassViewModel) {
     }
     val coroutineScope = rememberCoroutineScope()
     coroutineScope.launch {
+        viewModel.getWebsites()
         state.value = websites.value != null
     }
     Column(
@@ -48,12 +46,12 @@ fun ConnectedWeb(navController: NavController, viewModel: BioPassViewModel) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.padding(10.dp))
-        if (!state.value){
-            CircularProgressIndicator(modifier = Modifier.size(25.dp), color = Color.Blue)
-            Spacer(modifier = Modifier.padding(10.dp))
-            Text(text = "Loading")
-        }
-        else{
+//        if (!state.value){
+//            CircularProgressIndicator(modifier = Modifier.size(25.dp), color = Color.Blue)
+//            Spacer(modifier = Modifier.padding(10.dp))
+//            Text(text = "Loading")
+//        }
+//        else{
             websites.value?.forEach{ it ->
                 Card(
                     modifier = Modifier
@@ -63,7 +61,7 @@ fun ConnectedWeb(navController: NavController, viewModel: BioPassViewModel) {
                         )
                         .align(Alignment.CenterHorizontally)
                         .clickable {
-                            navController.navigate(Screens.BiometricScreen.route)
+                            navController.navigate(Screens.BiometricScreen.route + '/')
                         },
                 ) {
 
@@ -82,5 +80,5 @@ fun ConnectedWeb(navController: NavController, viewModel: BioPassViewModel) {
             }
         }
 
-    }
+//    }
 }
