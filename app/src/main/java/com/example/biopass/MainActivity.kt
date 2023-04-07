@@ -3,24 +3,25 @@ package com.example.biopass
 import android.Manifest
 import android.app.KeyguardManager
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.hardware.biometrics.BiometricPrompt
 import android.os.Build
 import android.os.Bundle
 import android.os.CancellationSignal
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.biopass.data.network.SocketHandler
+import com.example.biopass.domain.services.ForegroundService
 import com.example.biopass.presentation.BioPassViewModel
 import com.example.biopass.presentation.BioPassViewModelFactory
 import com.example.biopass.presentation.ConnectedWeb
@@ -44,6 +45,7 @@ class MainActivity : ComponentActivity() {
 
         SocketHandler.setSocket()
         val mSocket = SocketHandler.getSocket()
+        SocketHandler.mSocket = mSocket
         mSocket.connect()
         socket = mSocket
 
@@ -73,6 +75,19 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+        try{
+            startMyForegroundService()
+        }
+        catch (e:Exception){
+            Log.d("foreground problem",e.message.toString())
+        }
+
+
+    }
+
+    private fun startMyForegroundService(){
+        val intent = Intent(this,ForegroundService::class.java)
+        ContextCompat.startForegroundService(this,intent)
     }
 
     private val authenticationCalBack: BiometricPrompt.AuthenticationCallback
