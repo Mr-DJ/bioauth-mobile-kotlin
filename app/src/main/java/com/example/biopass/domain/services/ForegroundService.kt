@@ -77,7 +77,7 @@ class ForegroundService : Service() {
             action = "my_action"
             putExtra(INTENT_COMMAND,INTENT_COMMAND_CANCEL)
         }
-        val pendingIntent = PendingIntent.getActivity(this,1,resultIntent,PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent = PendingIntent.getActivity(this,1,resultIntent,0)
 
         val notification = NotificationCompat.Builder(this, "my_service_channel")
             .setContentTitle(title)
