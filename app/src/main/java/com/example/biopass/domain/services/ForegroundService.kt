@@ -56,10 +56,13 @@ class ForegroundService : Service() {
         startForeground(1,createNotification("Athentication required","Google").build())
         job = CoroutineScope(Dispatchers.IO).launch {
             try {
-                socket.on(""){args->
+                socket.on("authenticate"){args->
                     if (args[0]!=null){
                         handler.post{
-
+                            val message = args[0].toString()
+                            Log.d("foreground",message)
+                            val updatedNotification = createNotification("My Foreground Service", message).build()
+                            notificationManager.notify(1, updatedNotification)
                         }
                     }
 

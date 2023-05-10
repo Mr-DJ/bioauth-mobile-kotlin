@@ -30,6 +30,7 @@ import com.example.biopass.presentation.login_register.BioPassLogin
 import com.example.biopass.presentation.screen.Screens
 import com.example.biopass.ui.theme.BioPassTheme
 import io.socket.client.Socket
+import org.json.JSONObject
 
 class MainActivity : ComponentActivity() {
 
@@ -103,12 +104,19 @@ class MainActivity : ComponentActivity() {
             }
 
             override fun onAuthenticationFailed() {
+                val obj : JSONObject = JSONObject()
+                obj.put("success",false)
+
+                socket.emit("authResult",obj)
                 super.onAuthenticationFailed()
             }
 
             override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult?) {
 //                notifyUser("Authentication Succeeded "+result.toString())
-                socket.emit("checkSocket")
+                val obj : JSONObject = JSONObject()
+                obj.put("success",true)
+
+                socket.emit("authResult",obj)
                 super.onAuthenticationSucceeded(result)
             }
         }
