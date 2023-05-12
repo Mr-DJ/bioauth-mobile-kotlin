@@ -12,7 +12,7 @@ object SocketHandler {
     @Synchronized
     fun setSocket() {
         try {
-            mSocket = IO.socket(Constants.SAMHOUSETESTURL)
+            mSocket = IO.socket(Constants.PRODUCTIONSOCKET)
             Log.v("working","It's working")
         } catch (e: URISyntaxException) {
             Log.v("working","It's not working")
